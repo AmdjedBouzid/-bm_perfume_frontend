@@ -3,8 +3,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { DOMAIN } from "@/app/utils/constants";
-
+import { DOMAIN } from "../../utils/constants";
+import { toast } from "react-toastify";
+import { userAgent } from "next/server";
 export default function Login() {
   const router = useRouter();
   const [password, setPassword] = useState("");
@@ -14,7 +15,10 @@ export default function Login() {
 
   const handlingLogin = async (event) => {
     event.preventDefault();
-
+    if (!password || !username || !email || !phonenumber) {
+      toast.error("يجب ادخال جميع المعلومات 🙂🙂");
+      return;
+    }
     try {
       const response = await axios.post(
         `${DOMAIN}/api/auth/login`,
@@ -24,10 +28,13 @@ export default function Login() {
 
       if (response.status === 200) {
         Cookies.set("state", "pinrecived");
+        console.log("state:", Cookies.get("state"));
+
         router.push("/Pin-verification");
       }
     } catch (error) {
-      console.error("Login Error:", error.response?.data || error.message);
+      console.error("Login Error:", error);
+      toast.error(error.response.data.message);
     }
   };
 

@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import axios from "axios";
-import { DOMAIN } from "@/app/utils/constants";
+import { DOMAIN } from "../../utils/constants";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 export default function VerificationCode() {
@@ -54,12 +54,16 @@ export default function VerificationCode() {
         { Code_Pink: verificationCode },
         { withCredentials: true }
       );
-
+      console.log("response: ", response);
       if (response.status === 200) {
+        // console.log("token :", response.data.token);
+        const Token = response.data.token;
+        Cookies.set("Token", Token);
         Cookies.set("state", "authenticated");
         router.push("/Administration");
       }
     } catch (error) {
+      Cookies.set("Token", "");
       console.error("Verification failed:", error);
     }
   };
