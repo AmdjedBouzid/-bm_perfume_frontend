@@ -12,6 +12,7 @@ export default function Home() {
       <h1 className="text-3xl flex justify-center mt -4 font-extrabold">
         مرحبا بك
       </h1>
+      <Image src={images.loginImage} alt="" width={200} height={200} />
     </div>
   );
 }
