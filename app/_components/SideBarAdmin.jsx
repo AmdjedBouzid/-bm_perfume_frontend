@@ -16,7 +16,7 @@ const Sidebar = () => {
     >
       <div className="flex flex-col items-end mt-10 gap-20 pr-4">
         <div className="flex flex-row-reverse items-center  space-x-reverse space-x-3">
-          <Image src="/icons/user-circle.svg" width={30} height={30}/>
+          <Image src="/icons/user-circle.svg" width={30} height={30} alt="user"/>
           <span
             className={`${isOpen ? "block" : "hidden"} text-[22px] font-medium`}
           >
@@ -28,7 +28,7 @@ const Sidebar = () => {
           <SidebarItem isOpen={isOpen} imgSrc="/icons/Dashbord.svg" text="لوحة التحكم" />
           <SidebarItem isOpen={isOpen} imgSrc="/icons/Category.svg" text="الشركات" />
           <SidebarItem isOpen={isOpen} imgSrc="/icons/Products.svg" text="المنتجات" />
-          <SidebarItem isOpen={isOpen} imgSrc="/icons/Order.svg"text="الطلبات" />
+          <SidebarItem isOpen={isOpen} imgSrc="/icons/Order.svg" text="الطلبات" />
           <SidebarItem isOpen={isOpen} imgSrc="/icons/archive-02.svg" text="الأرشيف" />
           <SidebarItem isOpen={isOpen} imgSrc="/icons/Products.svg" text="الإعدادات" />
         </nav>
