@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
     <html lang="ar">
       <body className={cairo.className}>
         <ToastProvider />
-       <SideBarAdmin/>
+      
         <AppProvider>{children}</AppProvider>
       </body>
     </html>

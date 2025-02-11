@@ -1,31 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { FaSignOutAlt } from "react-icons/fa";
-import { IoSettingsSharp } from "react-icons/io5";
-import {
-  MdDashboard,
-  MdStore,
-  MdArchive,
-  MdShoppingCart,
-  MdCategory,
-} from "react-icons/md";
-import { FiUsers } from "react-icons/fi";
+import Image from "next/image";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div
-      className={`fixed top-0 right-0 h-screen bg-black text-secondary rounded-l-lg transition-all duration-300 ${
-        isOpen ? "w-64" : "w-16"
+      className={`fixed top-0 right-0 h-screen bg-black text-secondary shadow-[rgba(0,0,0,0.25)]  rounded-l-2xl transition-all duration-300 ${
+        isOpen ? "w-[229px]" : "w-[75px]"
       }`}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <div className="flex flex-col items-end mt-10 gap-12 pr-4">
-        <div className="flex flex-row-reverse items-center space-x-reverse space-x-3">
-          <FiUsers size={24} />
+      <div className="flex flex-col items-end mt-10 gap-20 pr-4">
+        <div className="flex flex-row-reverse items-center  space-x-reverse space-x-3">
+          <Image src="/icons/user-circle.svg" width={30} height={30}/>
           <span
             className={`${isOpen ? "block" : "hidden"} text-[22px] font-medium`}
           >
@@ -33,37 +24,37 @@ const Sidebar = () => {
           </span>
         </div>
 
-        <nav className="flex flex-col space-y-4 font-bold text-[24px] w-full">
-          <SidebarItem isOpen={isOpen} Icon={MdDashboard} text="لوحة التحكم" />
-          <SidebarItem isOpen={isOpen} Icon={FiUsers} text="الشركات" />
-          <SidebarItem isOpen={isOpen} Icon={MdCategory} text="المنتجات" />
-          <SidebarItem isOpen={isOpen} Icon={MdShoppingCart} text="الطلبات" />
-          <SidebarItem isOpen={isOpen} Icon={MdArchive} text="الأرشيف" />
-          <SidebarItem
-            isOpen={isOpen}
-            Icon={IoSettingsSharp}
-            text="الإعدادات"
-          />
+        <nav className="flex flex-col space-y-6 font-semibold text-[20px] w-full">
+          <SidebarItem isOpen={isOpen} imgSrc="/icons/Dashbord.svg" text="لوحة التحكم" />
+          <SidebarItem isOpen={isOpen} imgSrc="/icons/Category.svg" text="الشركات" />
+          <SidebarItem isOpen={isOpen} imgSrc="/icons/Products.svg" text="المنتجات" />
+          <SidebarItem isOpen={isOpen} imgSrc="/icons/Order.svg"text="الطلبات" />
+          <SidebarItem isOpen={isOpen} imgSrc="/icons/archive-02.svg" text="الأرشيف" />
+          <SidebarItem isOpen={isOpen} imgSrc="/icons/Products.svg" text="الإعدادات" />
         </nav>
 
         <SidebarItem
           isOpen={isOpen}
-          Icon={FaSignOutAlt}
+          imgSrc="/icons/logout-03.svg"
           text="تسجيل الخروج"
-          customClass="mt-auto mb-6"
+          customClass="mt-auto text-[20px] mt-20 font-medium mb-6"
         />
       </div>
     </div>
   );
 };
 
-const SidebarItem = ({ isOpen, Icon, text, customClass = "" }) => {
+const SidebarItem = ({ isOpen, Icon, imgSrc, text, customClass = "" }) => {
   return (
     <div
       className={`flex flex-row-reverse items-center space-x-reverse space-x-3 text-right p-2 cursor-pointer hover:bg-gray-800 rounded ${customClass}`}
     >
-      <Icon size={24} />
-      <span className={`${isOpen ? "block" : "hidden"} text-sm`}>{text}</span>
+      {imgSrc ? (
+        <Image src={imgSrc} alt={text} width={24} height={24} />
+      ) : (
+        Icon && <Icon size={24} />
+      )}
+      <span className={`${isOpen ? "block" : "hidden"} text-[18px]`}>{text}</span>
     </div>
   );
 };
