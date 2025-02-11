@@ -4,6 +4,7 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { DOMAIN } from "../utils/constants";
 import Cookies from "js-cookie";
+
 const AppContext = createContext(null);
 
 export const AppProvider = ({ children }) => {
@@ -39,8 +40,10 @@ export const AppProvider = ({ children }) => {
           Cookies.set("state", "authenticated");
         }
       } catch (error) {
-        Cookies.set("state", "notauthenticated");
-        Cookies.set("Token", "");
+        if (error.code !== "ERR_NETWORK") {
+          Cookies.set("state", "notauthenticated");
+          Cookies.set("Token", "");
+        }
 
         console.error("Error:", error.response?.data || error.message);
       }

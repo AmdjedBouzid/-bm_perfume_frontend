@@ -71,8 +71,11 @@ export default function VerificationCode() {
         }
       }
     } catch (error) {
+      console.log("error.code:", error.code);
+
       Cookies.set("Token", "");
       Cookies.set("state", "notauthenticated");
+
       console.error("Verification failed:", error);
     }
   };
