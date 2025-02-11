@@ -55,15 +55,24 @@ export default function VerificationCode() {
         { withCredentials: true }
       );
       console.log("response: ", response);
-      if (response.status === 200) {
+      if (response.status === 200 && typeof response.data.token === "string") {
         // console.log("token :", response.data.token);
         const Token = response.data.token;
-        Cookies.set("Token", Token);
-        Cookies.set("state", "authenticated");
-        router.push("/Administration");
+
+        if (Token) {
+          Cookies.set("Token", Token, {
+            expires: 30,
+            path: "/",
+            secure: false,
+            sameSite: "strict",
+          });
+          Cookies.set("state", "authenticated");
+          router.push("/Administration");
+        }
       }
     } catch (error) {
       Cookies.set("Token", "");
+      Cookies.set("state", "notauthenticated");
       console.error("Verification failed:", error);
     }
   };
