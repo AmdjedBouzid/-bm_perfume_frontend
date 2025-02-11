@@ -6,6 +6,7 @@ import images from "../public/assets";
 export default function Home() {
   const { admin } = useAppContext();
   console.log(DOMAIN);
+
   console.log("admin", admin);
   return (
     <div className="">
