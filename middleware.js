@@ -4,7 +4,7 @@ export function middleware(req) {
   console.log("hello middleware", req.cookies);
 
   const token = req.cookies?.get("Token")?.value || "";
-  const state = req.cookies.get("state").value || "notauthenticated";
+  const state = req.cookies.get("state")?.value || "notauthenticated";
   // console.log("token", token);
   // console.log("state", state);
   const pathname = req.nextUrl.pathname;

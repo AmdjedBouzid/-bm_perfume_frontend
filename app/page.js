@@ -9,11 +9,13 @@ export default function Home() {
   console.log(DOMAIN);
 
   console.log("admin", admin);
-  return <div className="">
+  return (
+    <div className="">
+      <h1 className="text-3xl flex justify-center mt -4 font-extrabold">
+        مرحبا بك
+      </h1>
 
-    <h1 className="text-3xl flex justify-center mt -4 font-extrabold">مرحبا بك</h1>
-    <Loader />
-    
-  </div>;
- 
+      {/* <Loader /> */}
+    </div>
+  );
 }

@@ -16,7 +16,8 @@ export default function CompanyTable() {
     axios
       .get(`${DOMAIN}/api/Brand`)
       .then((res) => {
-        const data = res.data;
+        const data = res.data.brands;
+        console.log("data:", data);
         if (Array.isArray(data)) {
           setCompanies(data);
         } else if (data && typeof data === "object") {
@@ -89,36 +90,53 @@ export default function CompanyTable() {
             </tr>
           </thead>
           <tbody>
-          {companies.length > 0 ? (
-  companies
-    
-    .map((company, index) => (
-      <tr key={index} className="text-center">
-        <td className="border border-gray-300 p-4">{company.name}</td>
-        <td className="border border-gray-300 p-4">{company.description }</td>
-        <td className="border border-gray-300 p-4">
-          {company.img ? (
-            <Image src={company.img} width={50} height={50} alt="Brand Image" />
-          ) : (
-            "—"
-          )}
-        </td>
-        <td className="border border-gray-300 p-4 flex justify-center gap-2">
-          <button>
-            <Image src="/icons/pencil-edit.svg" width={24} height={24} alt="Edit" />
-          </button>
-          <button>
-            <Image src="/icons/delete-02.svg" width={24} height={24} alt="Delete" />
-          </button>
-        </td>
-      </tr>
-    ))
-) : (
-  <tr>
-    <td colSpan={4} className="text-center p-4">لا توجد بيانات متاحة</td>
-  </tr>
-)}
-
+            {companies.length > 0 ? (
+              companies.map((company, index) => (
+                <tr key={index} className="text-center">
+                  <td className="border border-gray-300 p-4">{company.name}</td>
+                  <td className="border border-gray-300 p-4">
+                    {company.description}
+                  </td>
+                  <td className="border border-gray-300 p-4">
+                    {company.img ? (
+                      <img
+                        src={company?.img || "/exemple"}
+                        width={50}
+                        height={50}
+                        alt="Brand Image"
+                        className="h-[50px] w-[50px]"
+                      />
+                    ) : (
+                      "—"
+                    )}
+                  </td>
+                  <td className="border border-gray-300 p-4 flex justify-center gap-2">
+                    <button>
+                      <Image
+                        src="/icons/pencil-edit.svg"
+                        width={24}
+                        height={24}
+                        alt="Edit"
+                      />
+                    </button>
+                    <button>
+                      <Image
+                        src="/icons/delete-02.svg"
+                        width={24}
+                        height={24}
+                        alt="Delete"
+                      />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4} className="text-center p-4">
+                  لا توجد بيانات متاحة
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

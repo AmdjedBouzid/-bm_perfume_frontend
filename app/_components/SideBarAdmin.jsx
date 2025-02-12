@@ -8,7 +8,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`fixed top-0 right-0 h-screen bg-black text-secondary shadow-[rgba(0,0,0,0.25)]  rounded-l-2xl transition-all duration-300 ${
+      className={`fixed top-0 right-0 h-screen bg-black text-secondary shadow-[rgba(0,0,0,0.25)] overflow-y-scroll rounded-l-2xl transition-all duration-300 ${
         isOpen ? "w-[229px]" : "w-[75px]"
       }`}
       onMouseEnter={() => setIsOpen(true)}
@@ -16,7 +16,12 @@ const Sidebar = () => {
     >
       <div className="flex flex-col items-end mt-10 gap-20 pr-4">
         <div className="flex flex-row-reverse items-center  space-x-reverse space-x-3">
-          <Image src="/icons/user-circle.svg" width={30} height={30} alt="user"/>
+          <Image
+            src="/icons/user-circle.svg"
+            width={30}
+            height={30}
+            alt="user"
+          />
           <span
             className={`${isOpen ? "block" : "hidden"} text-[22px] font-medium`}
           >
@@ -25,12 +30,36 @@ const Sidebar = () => {
         </div>
 
         <nav className="flex flex-col space-y-6 font-semibold text-[20px] w-full">
-          <SidebarItem isOpen={isOpen} imgSrc="/icons/Dashbord.svg" text="لوحة التحكم" />
-          <SidebarItem isOpen={isOpen} imgSrc="/icons/Category.svg" text="الشركات" />
-          <SidebarItem isOpen={isOpen} imgSrc="/icons/Products.svg" text="المنتجات" />
-          <SidebarItem isOpen={isOpen} imgSrc="/icons/Order.svg" text="الطلبات" />
-          <SidebarItem isOpen={isOpen} imgSrc="/icons/archive-02.svg" text="الأرشيف" />
-          <SidebarItem isOpen={isOpen} imgSrc="/icons/Products.svg" text="الإعدادات" />
+          <SidebarItem
+            isOpen={isOpen}
+            imgSrc="/icons/Dashbord.svg"
+            text="لوحة التحكم"
+          />
+          <SidebarItem
+            isOpen={isOpen}
+            imgSrc="/icons/Category.svg"
+            text="الشركات"
+          />
+          <SidebarItem
+            isOpen={isOpen}
+            imgSrc="/icons/Products.svg"
+            text="المنتجات"
+          />
+          <SidebarItem
+            isOpen={isOpen}
+            imgSrc="/icons/Order.svg"
+            text="الطلبات"
+          />
+          <SidebarItem
+            isOpen={isOpen}
+            imgSrc="/icons/archive-02.svg"
+            text="الأرشيف"
+          />
+          <SidebarItem
+            isOpen={isOpen}
+            imgSrc="/icons/Products.svg"
+            text="الإعدادات"
+          />
         </nav>
 
         <SidebarItem
@@ -54,7 +83,9 @@ const SidebarItem = ({ isOpen, Icon, imgSrc, text, customClass = "" }) => {
       ) : (
         Icon && <Icon size={24} />
       )}
-      <span className={`${isOpen ? "block" : "hidden"} text-[18px]`}>{text}</span>
+      <span className={`${isOpen ? "block" : "hidden"} text-[18px]`}>
+        {text}
+      </span>
     </div>
   );
 };

@@ -13,13 +13,12 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     const handlingGettingAdmin = async () => {
       try {
-        const token = Cookies.get("Token");
+        let token = Cookies.get("Token");
 
-        if (!token) {
-          console.error("No token found in cookies");
+        if (!token || typeof token !== "string") {
+          console.log("No token found in cookies");
           Cookies.set("Token", "");
           Cookies.set("state", "notauthenticated");
-
           return;
         }
 
@@ -58,6 +57,7 @@ export const AppProvider = ({ children }) => {
     </AppContext.Provider>
   );
 };
+
 export const useAppContext = () => {
   return useContext(AppContext);
 };

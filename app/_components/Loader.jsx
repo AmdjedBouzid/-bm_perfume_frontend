@@ -1,15 +1,6 @@
-"use client";
-import { RotatingLines } from "react-loader-spinner";
-
 function Loader() {
   return (
-    <RotatingLines
-      strokeColor="grey"
-      strokeWidth="5"
-      animationDuration="0.75"
-      width="28"
-      visible={true}
-    />
-  )
+    <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+  );
 }
-export default  Loader;
+export default Loader;
