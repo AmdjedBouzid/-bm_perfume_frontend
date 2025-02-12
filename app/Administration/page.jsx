@@ -1,10 +1,11 @@
 import React from "react";
-
-
+import AdminLayout from "./layout";
 function page() {
-  return <div>administration
-    
-  </div>;
+  return (
+    <AdminLayout>
+      <div>administration</div>
+    </AdminLayout>
+  );
 }
 
 export default page;
