@@ -7,13 +7,14 @@ import Loader from "../app/_components/Loader";
 export default function AddBrandForm({ onClose, onAddCompany }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [preview, setPreview] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+      setSelectedImage(file.name); 
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreview(reader.result);
@@ -22,8 +23,8 @@ export default function AddBrandForm({ onClose, onAddCompany }) {
     }
   };
 
-  const removeFile = () => {
-    setSelectedFile(null);
+  const removeImage = () => {
+    setSelectedImage(null);
     setPreview(null);
   };
 
@@ -34,18 +35,18 @@ export default function AddBrandForm({ onClose, onAddCompany }) {
     setIsLoading(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000)); 
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       onAddCompany({ name, description, img: preview });
     } catch (error) {
       console.error("حدث خطأ أثناء الإرسال:", error);
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg w-[542px] h-auto relative">
+      <div className="bg-white p-6 rounded-lg w-[600px] h-[670px] relative">
         <button onClick={onClose} className="absolute top-4 left-4 text-gray-600">
           <X size={24} />
         </button>
@@ -74,27 +75,36 @@ export default function AddBrandForm({ onClose, onAddCompany }) {
             />
           </div>
 
-          <div className="mb-4 border-dashed border-2 border-gray-300 p-6 text-center rounded-lg">
+          
+          <div className="mb-4 border-dashed border-2 border-secondary p-6 text-center rounded-lg">
             <label className="cursor-pointer flex flex-col items-center">
-              <img src="/icons/Upload.svg" alt="Upload" className="w-10 h-10 mb-2" />
+              <img src="/icons/Upload.svg" alt="Upload" className="w-10 h-10 " />
               <span className="text-secondary font-medium">إضافة صورة</span>
-              <input type="file" className="hidden" onChange={handleFileChange} />
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleFileChange}
+                disabled={selectedImage !== null } 
+              />
             </label>
           </div>
 
-          {preview && (
-            <div className="flex justify-between items-center p-2 rounded-lg mt-2">
-              <img src={preview} alt="Preview" className="w-16 h-16 object-cover rounded-lg" />
-              <button onClick={removeFile} className="text-primary opacity-60">
+          
+          {selectedImage && preview && (
+              <div className="flex justify-between items-center p-2 rounded-lg  ">
+            <p className="text-center text-gray-600 text-sm"> {selectedImage}</p>
+            <button onClick={removeImage} className="text-primary opacity-60">
                 <X size={20} />
               </button>
-            </div>
+              </div>
           )}
+
 
           <button
             type="submit"
             className="bg-black text-white text-lg font-medium p-3 rounded-lg w-full mt-4 flex justify-center items-center"
-            disabled={isLoading} 
+            disabled={isLoading}
           >
             {isLoading ? <Loader /> : "إضافة شركة جديدة"}
           </button>

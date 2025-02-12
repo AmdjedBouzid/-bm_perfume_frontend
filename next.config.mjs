@@ -1,8 +1,5 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+export default {
   images: {
-    domains: ["picsum.photos", "loremflickr.com"], // Allow images from this domain
+    domains: ["loremflickr.com", "picsum.photos", "www.chanel.com"],
   },
 };
-
-export default nextConfig;
