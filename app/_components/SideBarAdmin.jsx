@@ -19,16 +19,18 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`fixed bg-black text-secondary shadow-[rgba(0,0,0,0.25)] transition-all duration-300 ${
-        isMobile
-          ? "bottom-0 left-0 right-0 h-[60px] flex justify-around items-center"
-          : `top-0 right-0 h-screen rounded-l-2xl ${
-              isOpen ? "w-[229px]" : "w-[75px]"
-            }`
-      }`}
-      onMouseEnter={() => !isMobile && setIsOpen(true)}
-      onMouseLeave={() => !isMobile && setIsOpen(false)}
-    >
+  className={`fixed bg-black text-secondary shadow-[rgba(0,0,0,0.25)] overflow-hidden transition-all duration-500 ${
+    isMobile
+      ? "bottom-0 left-0 right-0 h-[60px] flex justify-around items-center"
+      : `top-0 right-0 h-screen rounded-l-2xl ${
+          isOpen ? "min-w-[229px] " : "min-w-[75px]"
+        }`
+  }`}
+  onMouseEnter={() => !isMobile && setIsOpen(true)}
+  onMouseLeave={() => !isMobile && setIsOpen(false)}
+>
+
+  
       {!isMobile ? (
         <div className="flex flex-col items-end mt-20 gap-20 pr-4">
           <div className="flex flex-row-reverse items-center space-x-reverse space-x-3">
@@ -48,7 +50,7 @@ const Sidebar = () => {
           </div>
 
           <nav className="flex flex-col space-y-6 font-semibold text-[20px] w-full">
-            <Link href="/Administration">
+            <Link href="/Administration/">
               <SidebarItem
                 isOpen={isOpen}
                 imgSrc="/icons/Dashbord.svg"
@@ -62,28 +64,28 @@ const Sidebar = () => {
                 text="الشركات"
               />
             </Link>
-            <Link href="/Administration/">
+            <Link href="/Administration/Products">
               <SidebarItem
                 isOpen={isOpen}
                 imgSrc="/icons/Products.svg"
                 text="المنتجات"
               />
             </Link>
-            <Link href="/Administration">
+            <Link href="/Administration/Order">
               <SidebarItem
                 isOpen={isOpen}
                 imgSrc="/icons/Order.svg"
                 text="الطلبات"
               />
             </Link>
-            <Link href="/Administration/">
+            <Link href="/Administration/Archive">
               <SidebarItem
                 isOpen={isOpen}
                 imgSrc="/icons/archive-02.svg"
                 text="الأرشيف"
               />
             </Link>
-            <Link href="/Administration/">
+            <Link href="/Administration/Profile">
               <SidebarItem
                 isOpen={isOpen}
                 imgSrc="/icons/Products.svg"
