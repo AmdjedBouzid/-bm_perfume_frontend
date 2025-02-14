@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Search } from "lucide-react";
 import Image from "next/image";
-import AddBrandForm from "../../../Forms/AddFormBrand";
-import DeleteConfirmationModal from "../../../Forms/DeleteConfirmationModal";
+import AddBrandForm from "../../_components/Forms/AddFormBrand";
+import DeleteConfirmationModal from "../../_components/Forms/DeleteConfirmationModal";
 import { DOMAIN } from "../../utils/constants";
-
+import RRoutes from "../../_components/RRoutes";
+import { usePathname } from "next/navigation";
 export default function CompanyTable() {
   const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,6 +16,8 @@ export default function CompanyTable() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  var path = usePathname();
+  path = path.split("/").filter((item) => item !== "");
 
   const ITEMS_PER_PAGE = 9;
 
@@ -76,27 +79,29 @@ export default function CompanyTable() {
   return (
     <div className="p-4 md:p-8 lg:p-12 bg-white">
       <div className="flex items-center gap-3 w-full mb-6">
-  <button
-    onClick={() => setIsModalOpen(true)}
-    className="bg-black text-white px-4 py-2 rounded whitespace-nowrap"
-  >
-    إضافة شركة جديدة
-  </button>
-  <div className="relative flex-1 max-w-[250px]">
-    <input
-      type="text"
-      placeholder="البحث"
-      className="pl-10 pr-4 py-2 border rounded-lg w-full"
-      value={search}
-      onChange={(e) => setSearch(e.target.value)}
-    />
-    <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
-  </div>
-</div>
-
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="bg-black text-white px-4 py-2 rounded whitespace-nowrap"
+        >
+          إضافة شركة جديدة
+        </button>
+        <div className="relative flex-1 max-w-[250px]">
+          <input
+            type="text"
+            placeholder="البحث"
+            className="pl-10 pr-4 py-2 border rounded-lg w-full"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
+        </div>
+      </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse border border-gray-300" dir="rtl">
+        <table
+          className="w-full border-collapse border border-gray-300"
+          dir="rtl"
+        >
           <thead className="bg-gray-100">
             <tr>
               <th className="border border-gray-300 p-4">اسم الشركة</th>
@@ -110,11 +115,20 @@ export default function CompanyTable() {
               paginatedCompanies.map((company) => (
                 <tr key={company._id} className="text-center">
                   <td className="border border-gray-300 p-4">{company.name}</td>
-                  <td className="border border-gray-300 p-4">{company.description}</td>
-                  <td className="border border-gray-300 p-4">{company.Perfume?.length || 0}</td>
+                  <td className="border border-gray-300 p-4">
+                    {company.description}
+                  </td>
+                  <td className="border border-gray-300 p-4">
+                    {company.Perfume?.length || 0}
+                  </td>
                   <td className="border-t border-gray- p-4 flex justify-center gap-2 ">
                     <button>
-                      <Image src="/icons/pencil-edit.svg" width={24} height={24} alt="Edit" />
+                      <Image
+                        src="/icons/pencil-edit.svg"
+                        width={24}
+                        height={24}
+                        alt="Edit"
+                      />
                     </button>
                     <button
                       onClick={() => {
@@ -122,14 +136,21 @@ export default function CompanyTable() {
                         setIsDeleteModalOpen(true);
                       }}
                     >
-                      <Image src="/icons/delete-02.svg" width={24} height={24} alt="Delete" />
+                      <Image
+                        src="/icons/delete-02.svg"
+                        width={24}
+                        height={24}
+                        alt="Delete"
+                      />
                     </button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="4" className="text-center p-4">لا توجد شركات</td>
+                <td colSpan="4" className="text-center p-4">
+                  لا توجد شركات
+                </td>
               </tr>
             )}
           </tbody>
@@ -140,10 +161,14 @@ export default function CompanyTable() {
         <button
           onClick={() =>
             setCurrentPage((prev) =>
-              prev < Math.ceil(filteredCompanies.length / ITEMS_PER_PAGE) ? prev + 1 : prev
+              prev < Math.ceil(filteredCompanies.length / ITEMS_PER_PAGE)
+                ? prev + 1
+                : prev
             )
           }
-          disabled={currentPage === Math.ceil(filteredCompanies.length / ITEMS_PER_PAGE)}
+          disabled={
+            currentPage === Math.ceil(filteredCompanies.length / ITEMS_PER_PAGE)
+          }
           className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50"
         >
           التالي
@@ -159,13 +184,19 @@ export default function CompanyTable() {
 
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <AddBrandForm onClose={() => setIsModalOpen(false)} onAddCompany={addCompany} />
+          <AddBrandForm
+            onClose={() => setIsModalOpen(false)}
+            onAddCompany={addCompany}
+          />
         </div>
       )}
 
       {isDeleteModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center w-full bg-black bg-opacity-50">
-          <DeleteConfirmationModal onClose={() => setIsDeleteModalOpen(false)} onConfirm={deleteCompany} />
+          <DeleteConfirmationModal
+            onClose={() => setIsDeleteModalOpen(false)}
+            onConfirm={deleteCompany}
+          />
         </div>
       )}
     </div>
