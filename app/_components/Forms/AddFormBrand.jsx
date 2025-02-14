@@ -46,7 +46,7 @@ export default function AddBrandForm({ onClose, onAddCompany }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg w-[800px] h-[670px] relative">
+      <div className="bg-white p-6 rounded-lg w-[543px] h-[600px] relative">
         <button
           onClick={onClose}
           className="absolute top-4 left-4 text-gray-600"
@@ -84,7 +84,7 @@ export default function AddBrandForm({ onClose, onAddCompany }) {
             />
           </div>
 
-          <div className="mb-4 border-dashed border-2 border-secondary p-6 text-center rounded-lg">
+          <div className="mb-4 border-dashed border-2 border-secondary p-6 mt-8 text-center rounded-lg">
             <label className="cursor-pointer flex flex-col items-center">
               <img
                 src="/icons/Upload.svg"
@@ -116,7 +116,7 @@ export default function AddBrandForm({ onClose, onAddCompany }) {
 
           <button
             type="submit"
-            className="bg-black text-white text-lg font-medium p-3 rounded-lg w-full mt-4 flex justify-center items-center"
+            className="bg-black text-white text-lg font-medium p-3 rounded-lg w-full mt-10 flex justify-center items-center"
             disabled={isLoading}
           >
             {isLoading ? <Loader /> : "إضافة شركة جديدة"}
