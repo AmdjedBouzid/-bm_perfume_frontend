@@ -77,7 +77,7 @@ export default function CompanyTable() {
   );
 
   return (
-    <div className="p-4 md:p-8 lg:p-12 bg-white">
+    <div className="p-4 md:p-8 lg:p-12 bg-white pb-20">
       <div className="flex items-center gap-3 w-full mb-6">
         <button
           onClick={() => setIsModalOpen(true)}
@@ -183,7 +183,7 @@ export default function CompanyTable() {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-black  bg-opacity-50">
           <AddBrandForm
             onClose={() => setIsModalOpen(false)}
             onAddCompany={addCompany}
@@ -196,6 +196,7 @@ export default function CompanyTable() {
           <DeleteConfirmationModal
             onClose={() => setIsDeleteModalOpen(false)}
             onConfirm={deleteCompany}
+            title={"هل تريد حذف هذه الشركة ؟"}
           />
         </div>
       )}

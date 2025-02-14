@@ -46,24 +46,24 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex p-16 max-lg:p-4 flex-col gap-16 items-center max-lg:mt-4">
-      <h3 className="text-[60px] max-lg:text-[30px] font-bold">
+    <div className="min-h-screen flex mt-12 max-lg:p-4 max-sm:p-6 flex-col gap-12 items-center max-lg:mt-4">
+      <h3 className="text-[60px] max-lg:text-[30px]  font-bold">
         مرحبا بك في متجرك
       </h3>
 
-      <div className="h-screen w-full  flex justify-center gap-40  max-lg:h-full ">
+      <div className="h-screen w-full  flex justify-center gap-36  max-lg:h-full ">
         <img
           src={images.loginImage}
           alt=""
-          className="w-2/6  min-h-3/4  max-lg:hidden"
+          className="h-[716px] w-[500px]  max-lg:hidden"
         />
 
         <form
-          className="min-h-3/4 w-2/6  bg-[#CCB87C] flex flex-col gap-14 p-14  max-lg:w-full max-lg:pl-1 max-md:pr-1 rounded-lg pb-3"
+          className="h-[716px] w-[500px]  bg-[#CCB87C] flex flex-col gap-12 p-14  max-lg:w-full max-lg:pl-1 max-md:pr-1 rounded-xl pb-3"
           onSubmit={handlingLogin}
         >
           <div className="">
-            <label className="block text-right mb-2 text-[30px]">
+            <label className="block text-right font-semibold mb-2 text-[20px]">
               اسم المستخدم
             </label>
             <input
@@ -77,7 +77,7 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="block text-right mb-2  text-[30px]">
+            <label className="block text-right font-semibold mb-2 text-[20px]">
               الايميل
             </label>
             <input
@@ -91,19 +91,19 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="block text-right mb-2 text-[30px]">
+            <label className="block text-right mb-2 font-semibold  text-[20px]">
               كلمة المرور
             </label>
             <div className="flex justify-content gap-4 w-full p-3 rounded-lg bg-white/90 text-right">
               {showPassword ? (
                 <Eye
-                  size={35}
+                  size={25}
                   className="cursor-pointer"
                   onClick={() => setShowPassword(!showPassword)}
                 />
               ) : (
                 <EyeOff
-                  size={35}
+                  size={25}
                   className="cursor-pointer"
                   onClick={() => setShowPassword(!showPassword)}
                 />
@@ -121,7 +121,7 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="block text-right mb-2 text-[30px]">
+            <label className="block text-right font-semibold mb-2 text-[20px]">
               رقم الهاتف
             </label>
             <input
@@ -136,7 +136,7 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full bg-black text-white p-3 rounded-lg font-bold hover:bg-black/90 transition-colors text-[30px]  flex items-center justify-center"
+            className="w-full bg-black text-white p-3 rounded-lg font-bold hover:bg-black/90 transition-colors text-[20px]  flex items-center justify-center"
           >
             {waitingResponse ? <Loader /> : "تسجيل الدخول"}
           </button>

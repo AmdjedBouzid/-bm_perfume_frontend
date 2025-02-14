@@ -87,7 +87,7 @@ export default function VerificationCode() {
 
   return (
     <div className="h-screen bg-gradient-to-b from-amber-100 to-amber-200 flex flex-col items-center justify-center p-40 max-lg:p-4 ">
-      <div className="bg-[#D4B878] rounded-2xl p-8 shadow-lg h-2/4 w-1/3 flex flex-col items-center max-lg:w-full">
+      <div className="bg-[#D4B878] rounded-2xl p-8 shadow-lg h-[360px] w-1/3 flex flex-col items-center max-lg:w-full">
         {" "}
         <div className="flex justify-center mb-6">
           <svg
@@ -125,7 +125,7 @@ export default function VerificationCode() {
         </div>
         <button
           onClick={handleVerify}
-          className="w-1/2 bg-black text-white p-3 rounded-lg font-bold hover:bg-black/90 transition-colors font-arabic flex items-center justify-center"
+          className="w-1/2 bg-black text-white p-3 rounded-lg mb-4 mt-4 font-bold hover:bg-black/90 transition-colors font-arabic flex items-center justify-center"
         >
           {waitingResponse ? <Loader /> : "تحقق"}
         </button>
