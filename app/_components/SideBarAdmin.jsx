@@ -88,7 +88,7 @@ const Sidebar = () => {
             <Link href="/Administration/Profile">
               <SidebarItem
                 isOpen={isOpen}
-                imgSrc="/icons/Products.svg"
+                imgSrc="/icons/settings.svg"
                 text="الإعدادات"
               />
             </Link>
@@ -102,24 +102,29 @@ const Sidebar = () => {
           />
         </div>
       ) : (
-        <nav className="flex justify-around w-full ">
-          <Link href="/Admin-1">
-            <SidebarItem isOpen={true} imgSrc="/icons/Dashbord.svg" text="" />
+        <nav className="flex gap-2 w-full ">
+          <SidebarItem
+            isOpen={true}
+            imgSrc="/icons/logout-03.svg"
+            text=""
+          />
+          <Link href="/Administration/settings">
+            <SidebarItem isOpen={true} imgSrc="/icons/settings.svg" text="" />
           </Link>
-          <Link href="/Admin-1/Brand">
-            <SidebarItem isOpen={true} imgSrc="/icons/Category.svg" text="" />
-          </Link>
-          <Link href="/Products">
-            <SidebarItem isOpen={true} imgSrc="/icons/Products.svg" text="" />
-          </Link>
-          <Link href="/Order">
-            <SidebarItem isOpen={true} imgSrc="/icons/Order.svg" text="" />
-          </Link>
-          <Link href="/archive">
+          <Link href="/Administration/Archive">
             <SidebarItem isOpen={true} imgSrc="/icons/archive-02.svg" text="" />
           </Link>
-          <Link href="/settings">
+          <Link href="/Administration/Order">
+            <SidebarItem isOpen={true} imgSrc="/icons/Order.svg" text="" />
+          </Link>
+          <Link href="/Administration/Products">
             <SidebarItem isOpen={true} imgSrc="/icons/Products.svg" text="" />
+          </Link>
+          <Link href="/Administration/Brand">
+            <SidebarItem isOpen={true} imgSrc="/icons/Category.svg" text="" />
+          </Link>
+          <Link href="/Administration/">
+            <SidebarItem isOpen={true} imgSrc="/icons/Dashbord.svg" text="" />
           </Link>
         </nav>
       )}

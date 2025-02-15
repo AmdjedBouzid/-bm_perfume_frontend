@@ -2,7 +2,7 @@ import { Cairo } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "./context/AppContext";
 import ToastProvider from "./_components/ToastProvider";
-import SideBarAdmin from "./_components/SideBarAdmin"
+import NavBar from "./_components/NavBarUser"
 
 export const metadata = {
   title: "MB Perfume",
@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
     <html lang="ar">
       <body className={cairo.className}>
         <ToastProvider />
-      
+        <NavBar/>
         <AppProvider>{children}</AppProvider>
       </body>
     </html>
