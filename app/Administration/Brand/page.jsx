@@ -7,7 +7,8 @@ import Image from "next/image";
 import AddBrandForm from "../../_components/Forms/AddFormBrand";
 import DeleteConfirmationModal from "../../_components/Forms/DeleteConfirmationModal";
 import { DOMAIN } from "../../utils/constants";
-
+import RRoutes from "../../_components/RRoutes";
+import { usePathname } from "next/navigation";
 export default function CompanyTable() {
   const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,6 +16,8 @@ export default function CompanyTable() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  var path = usePathname();
+  path = path.split("/").filter((item) => item !== "");
 
   const ITEMS_PER_PAGE = 9;
 

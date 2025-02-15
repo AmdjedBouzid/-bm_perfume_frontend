@@ -19,18 +19,16 @@ const Sidebar = () => {
 
   return (
     <div
-  className={`fixed bg-black text-secondary shadow-[rgba(0,0,0,0.25)] overflow-hidden transition-all duration-500 ${
-    isMobile
-      ? "bottom-0 left-0 right-0 h-[60px] flex justify-around items-center"
-      : `top-0 right-0 h-screen rounded-l-2xl ${
-          isOpen ? "min-w-[229px] " : "min-w-[75px]"
-        }`
-  }`}
-  onMouseEnter={() => !isMobile && setIsOpen(true)}
-  onMouseLeave={() => !isMobile && setIsOpen(false)}
->
-
-  
+      className={`fixed bg-black text-secondary shadow-[rgba(0,0,0,0.25)] overflow-hidden transition-all duration-500 ${
+        isMobile
+          ? "bottom-0 left-0 right-0 h-[60px] flex justify-around items-center"
+          : `top-0 right-0 h-screen rounded-l-2xl ${
+              isOpen ? "min-w-[229px] " : "min-w-[75px]"
+            }`
+      }`}
+      onMouseEnter={() => !isMobile && setIsOpen(true)}
+      onMouseLeave={() => !isMobile && setIsOpen(false)}
+    >
       {!isMobile ? (
         <div className="flex flex-col items-end mt-20 gap-20 pr-4">
           <div className="flex flex-row-reverse items-center space-x-reverse space-x-3">
@@ -93,7 +91,6 @@ const Sidebar = () => {
               />
             </Link>
           </nav>
-
           <SidebarItem
             isOpen={isOpen}
             imgSrc="/icons/logout-03.svg"
@@ -103,11 +100,7 @@ const Sidebar = () => {
         </div>
       ) : (
         <nav className="flex gap-2 w-full ">
-          <SidebarItem
-            isOpen={true}
-            imgSrc="/icons/logout-03.svg"
-            text=""
-          />
+          <SidebarItem isOpen={true} imgSrc="/icons/logout-03.svg" text="" />
           <Link href="/Administration/settings">
             <SidebarItem isOpen={true} imgSrc="/icons/settings.svg" text="" />
           </Link>
