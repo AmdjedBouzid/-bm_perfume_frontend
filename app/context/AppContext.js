@@ -9,7 +9,7 @@ const AppContext = createContext(null);
 
 export const AppProvider = ({ children }) => {
   const [admin, setAdmin] = useState("");
-
+  const [products, setProducts] = useState([]);
   useEffect(() => {
     const handlingGettingAdmin = async () => {
       try {
@@ -52,7 +52,7 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ admin, setAdmin }}>
+    <AppContext.Provider value={{ admin, setAdmin, products, setProducts }}>
       {children}
     </AppContext.Provider>
   );

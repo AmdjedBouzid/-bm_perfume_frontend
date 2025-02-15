@@ -5,12 +5,14 @@ import axios from "axios";
 import { Search } from "lucide-react";
 import Image from "next/image";
 import { DOMAIN } from "../../utils/constants";
-import DeleteConfirmationModal from "../../_components/Forms/DeleteConfirmationModal"; 
-import AddProductForm from "../../_components/Forms/AddProductForm"; 
-
+import DeleteConfirmationModal from "../../_components/Forms/DeleteConfirmationModal";
+import AddProductForm from "../../_components/Forms/AddProductForm";
+import { useAppContext } from "../../context/AppContext";
 export default function ProductTable() {
   const [search, setSearch] = useState("");
-  const [products, setProducts] = useState([]);
+  // Hadil!! => hetre how you should use global state (just defind hin in the context and import here)
+  const { products, setProducts } = useAppContext();
+  // Hadil!! => hetre how you should use global state (just defind hin in the context and import here)
   const [brands, setBrands] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -64,8 +66,11 @@ export default function ProductTable() {
   return (
     <div className="p-4 md:p-8 lg:p-12 bg-white pb-20">
       <div className="flex items-center gap-3 w-full mb-6">
-        <button className="bg-black text-white p-3 rounded-lg whitespace-nowrap flex gap-2" onClick={() => setIsModalOpen(true)}>
-         اضافة منتج جديد <img src="/icons/add-circle.svg" alt="add" />
+        <button
+          className="bg-black text-white p-3 rounded-lg whitespace-nowrap flex gap-2"
+          onClick={() => setIsModalOpen(true)}
+        >
+          اضافة منتج جديد <img src="/icons/add-circle.svg" alt="add" />
         </button>
         <div className="relative flex-1 max-w-[250px]">
           <input
@@ -80,7 +85,10 @@ export default function ProductTable() {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse border border-gray-300" dir="rtl">
+        <table
+          className="w-full border-collapse border border-gray-300"
+          dir="rtl"
+        >
           <thead className="bg-gray-100">
             <tr>
               <th className="border border-gray-300 p-4">اسم المنتج</th>
@@ -95,7 +103,9 @@ export default function ProductTable() {
               filteredProducts.map((product) => (
                 <tr key={product._id} className="text-center">
                   <td className="border border-gray-300 p-4">{product.name}</td>
-                  <td className="border border-gray-300 p-4">{product.description}</td>
+                  <td className="border border-gray-300 p-4">
+                    {product.description}
+                  </td>
                   <td className="border border-gray-300 p-4">
                     {brands[product.brandId] || "غير معروف"}
                   </td>
@@ -112,7 +122,12 @@ export default function ProductTable() {
                   </td>
                   <td className="border p-4 flex justify-center gap-2">
                     <button>
-                      <Image src="/icons/pencil-edit.svg" width={24} height={24} alt="Edit" />
+                      <Image
+                        src="/icons/pencil-edit.svg"
+                        width={24}
+                        height={24}
+                        alt="Edit"
+                      />
                     </button>
                     <button
                       onClick={() => {
@@ -120,7 +135,12 @@ export default function ProductTable() {
                         setIsDeleteModalOpen(true);
                       }}
                     >
-                      <Image src="/icons/delete-02.svg" width={24} height={24} alt="Delete" />
+                      <Image
+                        src="/icons/delete-02.svg"
+                        width={24}
+                        height={24}
+                        alt="Delete"
+                      />
                     </button>
                   </td>
                 </tr>
@@ -138,7 +158,9 @@ export default function ProductTable() {
 
       <div className="flex justify-center md:justify-start items-center gap-4 mt-4">
         <button
-          onClick={() => setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev))}
+          onClick={() =>
+            setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev))
+          }
           disabled={currentPage >= totalPages}
           className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50"
         >
@@ -154,10 +176,7 @@ export default function ProductTable() {
       </div>
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black  bg-opacity-50">
-          <AddProductForm
-            onClose={() => setIsModalOpen(false)}
-            
-          />
+          <AddProductForm onClose={() => setIsModalOpen(false)} />
         </div>
       )}
       {isDeleteModalOpen && (
@@ -169,7 +188,6 @@ export default function ProductTable() {
           />
         </div>
       )}
-      
     </div>
   );
 }
