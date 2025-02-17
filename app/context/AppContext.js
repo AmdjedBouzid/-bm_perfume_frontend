@@ -4,55 +4,49 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { DOMAIN } from "../utils/constants";
 import Cookies from "js-cookie";
+import {
+  handlingGettingAdmin,
+  handlingGettingBrands,
+} from "../utils/functions";
 
 const AppContext = createContext(null);
 
 export const AppProvider = ({ children }) => {
   const [admin, setAdmin] = useState("");
   const [products, setProducts] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [allPerfumes, setAllPerfumes] = useState([]);
+
   useEffect(() => {
-    const handlingGettingAdmin = async () => {
+    const fetchData = async () => {
       try {
-        let token = Cookies.get("Token");
+        const adminData = await handlingGettingAdmin();
+        const brandsData = await handlingGettingBrands();
 
-        if (!token || typeof token !== "string") {
-          console.log("No token found in cookies");
-          Cookies.set("Token", "");
-          Cookies.set("state", "notauthenticated");
-          return;
-        }
-
-        const response = await axios.post(
-          `${DOMAIN}/api/auth/me`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            withCredentials: true,
-          }
-        );
-
-        console.log("response:", response.data);
-        if (response.status === 200) {
-          setAdmin(response.data.admin);
-          Cookies.set("state", "authenticated");
-        }
+        setAdmin(adminData || null);
+        setBrands(brandsData || []);
+        // console.log("Fetched brands:", brandsData);
       } catch (error) {
-        if (error.code !== "ERR_NETWORK") {
-          Cookies.set("state", "notauthenticated");
-          Cookies.set("Token", "");
-        }
-
-        console.error("Error:", error.response?.data || error.message);
+        console.error("Error fetching data:", error);
       }
     };
 
-    handlingGettingAdmin();
+    fetchData();
   }, []);
 
   return (
-    <AppContext.Provider value={{ admin, setAdmin, products, setProducts }}>
+    <AppContext.Provider
+      value={{
+        admin,
+        setAdmin,
+        products,
+        setProducts,
+        brands,
+        setBrands,
+        allPerfumes,
+        setAllPerfumes,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

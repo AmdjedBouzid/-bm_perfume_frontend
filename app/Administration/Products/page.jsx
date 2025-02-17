@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Search } from "lucide-react";
@@ -10,58 +9,46 @@ import AddProductForm from "../../_components/Forms/AddProductForm";
 import { useAppContext } from "../../context/AppContext";
 export default function ProductTable() {
   const [search, setSearch] = useState("");
-  // Hadil!! => hetre how you should use global state (just defind hin in the context and import here)
-  const { products, setProducts } = useAppContext();
-  // Hadil!! => hetre how you should use global state (just defind hin in the context and import here)
-  const [brands, setBrands] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
-
+  const [totalPerfumes, setTotalPerfumes] = useState(0);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const ITEMS_PER_PAGE = 6;
-
   useEffect(() => {
-    axios
-      .get(`${DOMAIN}/api/Perfume?page=${currentPage}&limit=6`)
-      .then((res) => {
-        if (Array.isArray(res.data)) {
-          setProducts(res.data);
-        } else {
-          setProducts([]);
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(
+          `${DOMAIN}/api/Perfume?page=${currentPage}&limit=${ITEMS_PER_PAGE}&search=${search}`
+        );
+        if (response.status === 200) {
+          setTotalPerfumes(response.data.totalItems);
+          setFilteredProducts(response.data.perfumes);
         }
-      })
-      .catch((err) => console.error("❌ خطأ في جلب المنتجات:", err));
-
-    axios
-      .get(`${DOMAIN}/api/Brand`)
-      .then((res) => {
-        const brandMap = {};
-        res.data.brands?.forEach((brand) => {
-          brandMap[brand._id] = brand.name;
-        });
-        setBrands(brandMap);
-      })
-      .catch((err) => console.error("❌ خطأ في جلب الشركات:", err));
-  }, [currentPage]);
-
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchProducts();
+  }, [currentPage, search]);
+  useEffect(() => {
+    console.log("totalPerfumes", currentPage);
+  });
   const deleteProduct = async () => {
     if (!selectedProductId) return;
 
     try {
+      setIsDeleteModalOpen(true);
       await axios.delete(`${DOMAIN}/api/Perfume/${selectedProductId}`);
-      setProducts((prev) => prev.filter((p) => p._id !== selectedProductId));
+      setFilteredProducts((prev) =>
+        prev.filter((p) => p._id !== selectedProductId)
+      );
       setIsDeleteModalOpen(false);
     } catch (error) {
       console.error("❌ خطأ في حذف المنتج:", error);
     }
   };
-
-  const filteredProducts = products.filter((product) =>
-    product.name?.toLowerCase().includes(search.toLowerCase())
-  );
-
-  const totalPages = Math.max(1, Math.ceil(products.length / ITEMS_PER_PAGE));
 
   return (
     <div className="p-4 md:p-8 lg:p-12 bg-white pb-20">
@@ -107,7 +94,7 @@ export default function ProductTable() {
                     {product.description}
                   </td>
                   <td className="border border-gray-300 p-4">
-                    {brands[product.brandId] || "غير معروف"}
+                    {product.brandId.name}
                   </td>
                   <td className="border border-gray-300 p-4">
                     {product.bottles?.length > 0 ? (
@@ -158,16 +145,14 @@ export default function ProductTable() {
 
       <div className="flex justify-center md:justify-start items-center gap-4 mt-4">
         <button
-          onClick={() =>
-            setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev))
-          }
-          disabled={currentPage >= totalPages}
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={currentPage * ITEMS_PER_PAGE >= totalPerfumes}
           className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50"
         >
           التالي
         </button>
         <button
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          onClick={() => setCurrentPage(currentPage - 1)}
           disabled={currentPage === 1}
           className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50"
         >

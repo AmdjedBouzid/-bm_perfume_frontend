@@ -9,10 +9,14 @@ import DeleteConfirmationModal from "../../_components/Forms/DeleteConfirmationM
 import { DOMAIN } from "../../utils/constants";
 import RRoutes from "../../_components/RRoutes";
 import { usePathname } from "next/navigation";
+import { useAppContext } from "../../context/AppContext";
 export default function CompanyTable() {
+  const { brands, setBrands } = useAppContext();
   const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [companies, setCompanies] = useState([]);
+  console.log("brands", brands);
+
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,14 +24,9 @@ export default function CompanyTable() {
   path = path.split("/").filter((item) => item !== "");
 
   const ITEMS_PER_PAGE = 9;
-
   useEffect(() => {
-    axios
-      .get(`${DOMAIN}/api/Brand`)
-      .then((res) => setCompanies(res.data.brands))
-      .catch((err) => console.error("خطأ في جلب البيانات:", err));
-  }, []);
-
+    setCompanies(brands?.length > 0 ? brands : []);
+  }, [brands]);
   const addCompany = async (formData) => {
     try {
       const jsonData = {
