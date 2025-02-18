@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import { Yantramanav } from "next/font/google";
 import { useAppContext } from "../../context/AppContext";
+import { Upload } from "lucide-react"; 
 export default function AddProductForm({ onClose }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -21,14 +22,14 @@ export default function AddProductForm({ onClose }) {
   const [newSize, setNewSize] = useState("");
   const [newPrice, setNewPrice] = useState("");
   const [sendRequestLoader, setSendRequestLoader] = useState(false);
-  const qualities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  const qualities = [1, 2, 3, 4, 5];
   const [images, setImages] = useState([]);
   const [quality, setQuality] = useState(1);
   const addSize = () => {
     if (!newSize || !newPrice) return;
     setSises([...sizes, { size: Number(newSize), price: Number(newPrice) }]);
     setNewSize("");
-    setNewPrice("");
+    setNewPrice("");  
     setOpenSizeInput(false);
   };
   const { products, setProducts } = useAppContext();
@@ -118,8 +119,8 @@ export default function AddProductForm({ onClose }) {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 max-lg:p-4">
-      <div className="bg-white p-6 rounded-lg w-[843px] h-3/4 relative overflow-y-scroll no-scrollbar">
+    <div className="fixed inset-0 flex items-center justify-center  bg-black bg-opacity-50 max-lg:p-4">
+      <div className="bg-white rounded-lg w-[550px] h-[700px] relative p-8 overflow-y-scroll no-scrollbar">
         <button
           onClick={onClose}
           className="absolute top-4 left-4 text-gray-600"
@@ -130,32 +131,32 @@ export default function AddProductForm({ onClose }) {
         <h2 className="text-2xl font-bold text-center mb-6">إضافة منتج جديد</h2>
 
         <form>
-          <div className="mb-4">
+          <div className="mb-2">
             <label className="block text-right text-gray-700 font-medium mb-2">
               اسم المنتج
             </label>
             <input
               type="text"
               placeholder="... اسم المنتج"
-              className="w-full border border-gray-300 p-3 text-right rounded-lg bg-gray-100"
+              className="w-full border h-12 border-gray-300 p-3 text-right rounded-lg bg-[#F4F4F4] opacity-95"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-2">
             <label className="block text-right text-gray-700 font-medium mb-2">
               وصف المنتج
             </label>
             <textarea
               placeholder="... وصف المنتج"
-              className="w-full border border-gray-200 p-3 text-right rounded-lg bg-gray-100 h-28 resize-none"
+              className="w-full border border-gray-200 p-3 text-right rounded-lg bg-[#F4F4F4] opacity-95 h-20 resize-none"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-3">
             <label className="block text-right text-gray-700 font-medium mb-2">
               شركة المنتج
             </label>
@@ -163,11 +164,11 @@ export default function AddProductForm({ onClose }) {
               <p className="text-gray-500">جارِ تحميل الشركات...</p>
             ) : (
               <select
-                className="w-full border border-gray-300 p-3 text-right rounded-lg bg-gray-100"
+                className="w-full border border-gray-300 p-3 text-right rounded-lg bg-[#F4F4F4] opacity-95 h-14"
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
               >
-                <option value="">اختر الشركة</option>
+                <option value="" >اختر الشركة</option>
                 {companies.length > 0 ? (
                   companies.map((comp) => (
                     <option key={comp._id} value={comp._id}>
@@ -187,7 +188,7 @@ export default function AddProductForm({ onClose }) {
                 الجنس
               </label>
               <select
-                className="w-full border border-gray-300 p-3 text-right rounded-lg bg-gray-100"
+                className="w-full border  border-gray-300 p-3 text-right rounded-lg bg-[#F4F4F4] opacity-95"
                 id="sex"
                 name="sex"
                 value={sex}
@@ -202,13 +203,13 @@ export default function AddProductForm({ onClose }) {
                 الجودة
               </label>
               <select
-                className="w-full border border-gray-300 p-3 text-right rounded-lg bg-gray-100 "
+                className="w-full border border-gray-300 p-3 text-right rounded-lg bg-[#F4F4F4] opacity-95 "
                 id="quality"
                 name="quality"
                 value={quality}
                 onChange={(e) => setQuality(e.target.value)}
               >
-                <option value="">اختر الشركة</option>
+                <option value="">اختر الجودة</option>
                 {qualities.length > 0 ? (
                   qualities.map((item, index) => (
                     <option key={index} value={item}>
@@ -217,21 +218,21 @@ export default function AddProductForm({ onClose }) {
                     </option>
                   ))
                 ) : (
-                  <option disabled>لا توجد شركات متاحة</option>
+                  <option disabled>لا توجد جودة متاحة</option>
                 )}
               </select>
             </div>
           </div>
           <div className="w-full flex justify-end">
             {!openSizeInput ? (
-              <button
-                className={`bg-black text-white text-lg font-medium p-3 rounded-lg mt-10 flex justify-center items-center mb-5`}
+              <h1
+                className={` text-black cursor-pointer  text-[18px] font-semibold p-3 rounded-lg mt-1 gap-2 flex justify-center items-center `}
                 onClick={() => {
                   setOpenSizeInput(!openSizeInput);
                 }}
               >
-                إظافة حجم
-              </button>
+              <span className="opacity-[0.33]">إضافة حجم جديد</span><img src="/icons/add-circle1.svg" alt="add" />
+              </h1>
             ) : (
               <></>
             )}
@@ -239,7 +240,7 @@ export default function AddProductForm({ onClose }) {
           {openSizeInput ? (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 max-lg:p-6">
               <div className="h-52 w-1/4 max-lg:w-full  p-4 flex flex-col gap-10 rounded-lg bg-white">
-                <div className="w-full flex justify-between items-center">
+                <div className="w-full flex justify-between gap-4 items-center">
                   <div className=" flex flex-col items-end">
                     <label className="block text-right text-gray-700 font-medium mb-2">
                       الحجم(مل)
@@ -267,7 +268,7 @@ export default function AddProductForm({ onClose }) {
                 </div>
                 <div className="w-full flex gap-5">
                   <button
-                    className="bg-black text-white text-lg font-medium p-3 rounded-lg   flex justify-center items-center w-full"
+                    className="bg-black text-white h-12 text-lg font-medium p-3 rounded-lg   flex justify-center items-center w-3/4"
                     onClick={() => {
                       setNewSize("");
                       setNewPrice("");
@@ -277,7 +278,7 @@ export default function AddProductForm({ onClose }) {
                     إلغاء
                   </button>
                   <button
-                    className="bg-black text-white text-lg font-medium p-3 rounded-lg flex justify-center items-center w-full"
+                    className="bg-black text-white h-12 text-lg font-medium p-3 rounded-lg flex justify-center items-center w-3/4"
                     onClick={addSize}
                   >
                     تأكيد
@@ -308,12 +309,16 @@ export default function AddProductForm({ onClose }) {
             <></>
           )}
 
-          <div className=" w-full  flex items-center justify-center bg-black text-white text-lg font-medium p-3 rounded-lg mt-10  mb-5">
-            {" "}
-            <CldUploadButton uploadPreset="olystsuw" onSuccess={onUpload}>
-              <h1>أظف صورة</h1>
-            </CldUploadButton>
-          </div>
+<div className="w-full flex items-center justify-center">
+      <CldUploadButton
+        uploadPreset="olystsuw"
+        onSuccess={onUpload}
+        className="w-full mt-2 h-40 flex flex-col items-center justify-center border-2 border-dashed border-[#9c8557] rounded-lg text-[#9c8557] hover:bg-[#9c855730] transition-all cursor-pointer"
+      >
+        <Upload className="w-8 h-8 text-[#9c8557]" />
+        <p className="mt-2 text-sm font-medium">إضافة صورة</p>
+      </CldUploadButton>
+    </div>
           <div className="w-full flex flex-wrap gap-4  ">
             {images.map((item, index) => (
               <div
@@ -333,7 +338,7 @@ export default function AddProductForm({ onClose }) {
           <div className="w-full h-auto flex justify-center items-center ">
             {" "}
             <button
-              className="bg-black text-white text-lg font-medium p-3 rounded-lg flex justify-center items-center w-1/2 mt-16"
+              className="bg-black text-white text-lg font-medium p-3 rounded-lg flex justify-center items-center w-full mt-6"
               onClick={handleSubmit}
             >
               {sendRequestLoader ? <Loader /> : "تأكيد"}

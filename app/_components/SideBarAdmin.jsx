@@ -27,7 +27,7 @@ const Sidebar = () => {
             }`
       }`}
       onMouseEnter={() => !isMobile && setIsOpen(true)}
-      onMouseLeave={() => !isMobile && setIsOpen(false)}
+      onMouseLeave={() => !isMobile && setIsOpen(false)}j
     >
       {!isMobile ? (
         <div className="flex flex-col items-end mt-20 gap-20 pr-4">

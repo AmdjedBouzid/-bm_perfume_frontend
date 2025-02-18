@@ -14,10 +14,9 @@ export default function Home() {
   console.log("admin", admin);
   return (
     <div className="">
-      
      <HeroSection/>
-   <WhyUsSection/>  
-   <ProductSection/>
+     <WhyUsSection/>  
+     <ProductSection/>
     </div>
     
   );

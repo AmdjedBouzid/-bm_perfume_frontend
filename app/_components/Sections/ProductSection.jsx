@@ -66,15 +66,15 @@ const products = [
     return (
       <section className="text-center py-10">
         <h2 className="text-3xl font-bold mb-6">منتجات MB PARFUMS</h2>
-        <div className="flex justify-center">
+        <div className="flex justify-items-end">
           <input
             type="text"
             placeholder="ابحث عن عطرك المفضل"
             className="border p-2 rounded-md w-80 text-right"
           />
         </div>
-        <div className="flex justify-center mt-8">
-        <div className="grid grid-cols-3 gap-4 place-items-center">
+        <div className="flex justify-between mt-8">
+        <div className="flex flex-wrap  p-20 gap-28 place-items-center">
             {products.map((product) => (
               <ProductCard  key={product.id} {...product} />
             ))}
