@@ -39,8 +39,8 @@ export default function Login() {
         router.push("/Pin-verification");
       }
     } catch (error) {
-      console.error("Login Error:", error);
-      toast.error(error.response.data.message);
+      console.log("Login Error:", error);
+      toast.error(error?.response?.data?.message);
       setWaitingResponse(false);
     }
   };

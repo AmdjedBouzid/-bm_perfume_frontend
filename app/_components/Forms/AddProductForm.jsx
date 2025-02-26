@@ -9,7 +9,7 @@ import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import { Yantramanav } from "next/font/google";
 import { useAppContext } from "../../context/AppContext";
-import { Upload } from "lucide-react"; 
+import { Upload } from "lucide-react";
 export default function AddProductForm({ onClose }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -29,7 +29,7 @@ export default function AddProductForm({ onClose }) {
     if (!newSize || !newPrice) return;
     setSises([...sizes, { size: Number(newSize), price: Number(newPrice) }]);
     setNewSize("");
-    setNewPrice("");  
+    setNewPrice("");
     setOpenSizeInput(false);
   };
   const { products, setProducts } = useAppContext();
@@ -168,7 +168,7 @@ export default function AddProductForm({ onClose }) {
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
               >
-                <option value="" >اختر الشركة</option>
+                <option value="">اختر الشركة</option>
                 {companies.length > 0 ? (
                   companies.map((comp) => (
                     <option key={comp._id} value={comp._id}>
@@ -231,7 +231,8 @@ export default function AddProductForm({ onClose }) {
                   setOpenSizeInput(!openSizeInput);
                 }}
               >
-              <span className="opacity-[0.33]">إضافة حجم جديد</span><img src="/icons/add-circle1.svg" alt="add" />
+                <span className="opacity-[0.33]">إضافة الحجم والسعر</span>
+                <img src="/icons/add-circle1.svg" alt="add" />
               </h1>
             ) : (
               <></>
@@ -243,7 +244,7 @@ export default function AddProductForm({ onClose }) {
                 <div className="w-full flex justify-between gap-4 items-center">
                   <div className=" flex flex-col items-end">
                     <label className="block text-right text-gray-700 font-medium mb-2">
-                      الحجم(مل)
+                      السعر (دج)
                     </label>
                     <input
                       type="number"
@@ -290,15 +291,17 @@ export default function AddProductForm({ onClose }) {
             <></>
           )}
           {sizes.length > 0 ? (
-            <div className="h-auto w-full  mt-2 flex flex-col gap-1 rounded-sm ">
+            <div className="h-auto w-full  mt-1 flex flex-col gap-2 rounded-sm ">
               {sizes.map((item, index) => (
                 <div
                   key={index}
-                  className="h-12 w-full bg-gray-200 flex justify-between items-center cursor-pointer hover:bg-red-200"
+                  className="h-12 w-full bg-gray-100 p-4 rounded-lg flex justify-between items-center cursor-pointer"
                   onClick={() => deleteSize(index)}
                 >
-                  <div>{item.price}(دج)</div>
-                  <div>{item.size} (مل)</div>
+                  <div className="flex justify-start gap-4">
+                    <div>{item.price}(دج)</div>
+                    <div>{item.size} (مل)</div>
+                  </div>
                   <div>
                     <X />
                   </div>
@@ -309,16 +312,16 @@ export default function AddProductForm({ onClose }) {
             <></>
           )}
 
-<div className="w-full flex items-center justify-center">
-      <CldUploadButton
-        uploadPreset="olystsuw"
-        onSuccess={onUpload}
-        className="w-full mt-2 h-40 flex flex-col items-center justify-center border-2 border-dashed border-[#9c8557] rounded-lg text-[#9c8557] hover:bg-[#9c855730] transition-all cursor-pointer"
-      >
-        <Upload className="w-8 h-8 text-[#9c8557]" />
-        <p className="mt-2 text-sm font-medium">إضافة صورة</p>
-      </CldUploadButton>
-    </div>
+          <div className="w-full flex items-center justify-center">
+            <CldUploadButton
+              uploadPreset="olystsuw"
+              onSuccess={onUpload}
+              className="w-full mt-2 h-40 flex flex-col items-center justify-center border-2 border-dashed border-[#9c8557] rounded-lg text-[#9c8557] hover:bg-[#a1947b30] transition-all cursor-pointer"
+            >
+              <Upload className="w-8 h-8 text-[#a28e65]" />
+              <p className="mt-2 text-sm font-medium">إضافة صورة</p>
+            </CldUploadButton>
+          </div>
           <div className="w-full flex flex-wrap gap-4  ">
             {images.map((item, index) => (
               <div
